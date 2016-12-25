@@ -5,9 +5,9 @@ import React, {PropTypes} from 'react'
 import ItemView from './ItemView'
 import $ from 'jquery';
 
-const getRandomHint = 'Click here to get random WiKi'
+const getRandomHint = 'Click here to get a random WiKi'
 const randomWiKiApi = 'https://en.wikipedia.org/wiki/Special:Random'
-const baseWiKiApi = 'https://en.wikipedia.org/w/api.php?action=query&format=json&generator=search&prop=extracts&gsrsearch='
+const baseWiKiApi = 'https://en.wikipedia.org/w/api.php?format=json&action=query&generator=search&gsrnamespace=0&gsrlimit=10&prop=pageimages|extracts&pilimit=max&exintro&explaintext&exsentences=1&exlimit=max&gsrsearch='
 const baseDetailWiKiApi = 'https://en.wikipedia.org/?curid='
 
 const Styles = {
@@ -32,6 +32,13 @@ const Styles = {
         transform: 'translateX(-50%) translateY(-50%)',
 
         textAlign: 'center',
+    },
+    searchText: {
+        borderWidth: 1,
+        borderRadius: 3,
+        borderColor: 'orange',
+        height: 24,
+
     }
 }
 
@@ -76,14 +83,6 @@ export default class App extends React.Component {
                         curid: pages[key].pageid,
                     })
                 }
-                // pages
-                // .map(function(v){
-                //     return {
-                //         title: pages[v].title,
-                //         body: pages[v].extract,
-                //         curid: pages[v].pageid,
-                //     };
-                // });
                 that.setState({items: items});
             }
         });
@@ -94,8 +93,15 @@ export default class App extends React.Component {
             return (
                 <div style={Styles.container}>
                     <div style={Styles.headerCenter}>
-                    <h2><a target="_blank" href={randomWiKiApi} style={{textDecoration: 'none'}}>{getRandomHint}</a></h2>
-                    <input type="text" onChange={this.handleTextChange} value={this.state.searchText} onKeyDown={this.startSearch}/>
+                    <h3><a target="_blank" href={randomWiKiApi} style={{textDecoration: 'none'}}>{getRandomHint}</a></h3>
+                    <input
+                        type="text"
+                        onChange={this.handleTextChange}
+                        value={this.state.searchText}
+                        style={Styles.searchText}
+                        onKeyDown={this.startSearch}
+                    />
+                        <h4>Type in and press return key to search.</h4>
                     </div>
                 </div>
             );
@@ -103,8 +109,14 @@ export default class App extends React.Component {
             return (
                 <div style={Styles.container}>
                     <div style={Styles.headerTop}>
-                    <h2><a target="_blank" href={randomWiKiApi}>{getRandomHint}</a></h2>
-                    <input type="text" onChange={this.handleTextChange} value={this.state.searchText} onKeyDown={this.startSearch}/>
+                    <h2><a target="_blank" href={randomWiKiApi} style={{textDecoration: 'none'}}>{getRandomHint}</a></h2>
+                    <input
+                        type="text"
+                        onChange={this.handleTextChange}
+                        value={this.state.searchText}
+                        style={Styles.searchText}
+                        onKeyDown={this.startSearch}
+                    />
                     </div>
                     {this.state.items.map(function(v) {
                         console.log(v);
