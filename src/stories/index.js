@@ -20,7 +20,7 @@ storiesOf('Button', module)
 
 storiesOf('ItemView', module)
     .add('demo', () => (
-        <ItemView body='this is a body' link='http://www.baidu.com' title='Title'> </ItemView>
+        <ItemView > </ItemView>
     ));
 
 storiesOf('App', module)
